@@ -127,3 +127,63 @@ func (l *Logger) Fatalf(format string, a ...interface{}) {
 		l.logger.Fatalf(format, a...)
 	}
 }
+
+func (l *Logger) Trace(a ...interface{}) {
+	l.Lock()
+	defer l.Unlock()
+
+	if l.Level > DEBUG {
+		l.logger.SetPrefix("TRACE ")
+		l.logger.Print(a...)
+	}
+}
+
+func (l *Logger) Debug(a ...interface{}) {
+	l.Lock()
+	defer l.Unlock()
+
+	if l.Level > INFO {
+		l.logger.SetPrefix("DEBUG ")
+		l.logger.Print(a...)
+	}
+}
+
+func (l *Logger) Info(a ...interface{}) {
+	l.Lock()
+	defer l.Unlock()
+
+	if l.Level > WARN {
+		l.logger.SetPrefix("INFO ")
+		l.logger.Print(a...)
+	}
+}
+
+func (l *Logger) Warn(a ...interface{}) {
+	l.Lock()
+	defer l.Unlock()
+
+	if l.Level > ERROR {
+		l.logger.SetPrefix("WARN ")
+		l.logger.Print(a...)
+	}
+}
+
+func (l *Logger) Error(a ...interface{}) {
+	l.Lock()
+	defer l.Unlock()
+
+	if l.Level > FATAL {
+		l.logger.SetPrefix("ERROR ")
+		l.logger.Print(a...)
+	}
+}
+
+func (l *Logger) Fatal(a ...interface{}) {
+	l.Lock()
+	defer l.Unlock()
+
+	if l.Level > OFF {
+		l.logger.SetPrefix("FATAL ")
+		l.logger.Fatal(a...)
+	}
+}
